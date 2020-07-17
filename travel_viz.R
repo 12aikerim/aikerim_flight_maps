@@ -34,8 +34,6 @@ world<-c(geom_polygon(aes(long,lat,group=group),
 fortify.SpatialLinesDataFrame=function(model,data,...){
   ldply(model@lines,fortify)
 }
-p<-ggplot()+
-  world
 
 # Great circle routes
 routes <- gcIntermediate(flights[,c('lng.x', 'lat.x')], 
@@ -49,6 +47,7 @@ fortifiedroutes <- fortify.SpatialLinesDataFrame(routes)
 fortifiedroutes <- fortifiedroutes %>%
   arrange(group,order) %>%
   mutate(ord = rownames(.) %>% as.numeric()) 
+
 
 # Create plot + animation
 anim <- ggplot() +
