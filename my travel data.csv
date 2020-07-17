@@ -1,0 +1,45 @@
+Date,From,To,Mode
+19.08.2013,Almaty,Seoul,Flight
+22.06.2014,Seoul,Almaty,Flight
+30.08.2014,Almaty,Seoul,Flight
+22.12.2014,Seoul,Almaty,Flight
+26.02.2015,Almaty,Seoul,Flight
+22.06.2015,Seoul,Novosibirsk,Flight
+22.06.2015,Novosibirsk,Almaty,Flight
+01.07.2015,Taraz,Cholpon-Ata,Car
+18.08.2015,Cholpon-Ata,Bishkek,Car
+20.08.2015,Bishkek,Istanbul,Flight
+26.08.2015,Istanbul,Bishkek,Flight
+27.08.2015,Bishkek,Taraz,Car
+03.09.2015,Almaty,Seoul,Car
+02.01.2016,Seoul,Almaty,Flight
+06.01.2016,Taraz,Cholpon-Ata,Car
+26.02.2016,Almaty,Seoul,Flight
+05.02.2017,Busan,Kuala Lumpur,Flight
+05.02.2017,Kuala Lumpur,Denpasar,Flight
+15.02.2017,Denpasar,Kuala Lumpur,Flight
+16.02.2017,Kuala Lumpur,Busan,Flight
+18.02.2017,Seoul,Novosibirsk,Flight
+19.02.2017,Novosibirsk,Bishkek,Flight
+17.03.2017,Taraz,Bishkek,Car
+28.03.2017,Bishkek,Taraz,Car
+19.05.2017,Almaty,Istanbul,Flight
+20.05.2017,Istanbul,Stockholm,Flight
+26.05.2017,Stockholm,Istanbul,Flight
+26.05.2017,Istanbul,Almaty,Flight
+21.08.2017,Almaty,Seoul,Flight
+22.12.2017,Seoul,Almaty,Flight
+29.12.2017,Taraz,Cholpon-Ata,Car
+07.01.2018,Cholpon-Ata,Taraz,Car
+25.04.2019,Almaty,Sharm-el-sheikh,Flight
+29.04.2019,Sharm-el-sheikh,Cairo,Car
+05.05.2019,Sharm-el-sheikh,Almaty,Flight
+08.12.2019,Nur-Sultan,Budapest,Flight
+11.12.2019,Budapest,Berlin,Flight
+14.12.2019,Berlin,Rome,Flight
+17.12.2019,Rome,Budapest,Flight
+18.12.2020,Budapest,Nur-Sultan,Flight
+27.02.2020,Nur-Sultan,Istanbul,Flight
+27.02.2020,Istanbul,Budapest,Flight
+02.03.2020,Budapest,Istanbul,Flight
+02.03.2020,Istanbul,Nur-Sultan,Flight
