@@ -11,6 +11,7 @@ library(geosphere)
 library(tidyverse)
 library(plyr)
 library(gganimate)
+library(ggrepel)
 
 #A dataset of my travel routes mannually entered to Google Sheets at https://docs.google.com/spreadsheets/d/1zzfZNwtIEQ2qL6YAh7o8f7Tw9AiUbK42P7-jmwJHGDU/edit?usp=sharing
 flights<-read_delim("my travel data.csv",delim = ",")
@@ -30,8 +31,18 @@ worldmap<-map_data("world") #load the mapdata of the world to worldmap var
 world<-c(geom_polygon(aes(long,lat,group=group),
                       size=0.1,
                       colour="#e1f7f5",
-                      fill="#d7dedd",alpha=0.8, data = worldmap))
-fortify.SpatialLinesDataFrame=function(model,data,...){
+                      fill="#2A7B9A",alpha=0.8, data = worldmap))
+# Add city points of visited cities
+city_points<-unique(flights %>%
+                      select(From,lat.x,lng.x))
+g<-ggplot()+
+  world+
+  geom_point(data=city_points,aes(x=lng.x,y=lat.x),color="#C70939",size=2) +
+  coord_fixed(ratio=1.3, xlim=c(-17.4731, 179.3067), ylim=c(-50.3333, 68.9700))+
+  geom_text_repel(data=city_points, aes(x = lng.x, y = lat.x, label = From), col = "white", size = 4,segment.color=NA) 
+
+
+gfortify.SpatialLinesDataFrame=function(model,data,...){
   ldply(model@lines,fortify)
 }
 
@@ -50,11 +61,10 @@ fortifiedroutes <- fortifiedroutes %>%
 
 
 # Create plot + animation
-anim <- ggplot() +
-  world +
-  geom_line(aes(long,lat, group = id), size=.3, data= fortifiedroutes,
-            color = "#f26666",
-            alpha = .3) +
+anim <- g+
+  geom_line(aes(long,lat, group = id), size=.8, data= fortifiedroutes,
+            color = "#EDDD53",
+            alpha = .2) +
   theme(panel.background = element_rect(fill='#1f1f1f',colour='#2b2b2b'), 
         panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(legend.position = "None",
@@ -63,6 +73,5 @@ anim <- ggplot() +
         axis.text = element_blank()) + 
   transition_reveal(fortifiedroutes$ord)
 
-animate(anim, fps = 20, width = 1980, height = 1080, 
-        duration = 30, end_pause = 40)
+animate(anim, fps = 10,width = 1720, height = 1350) #to use ffmeg_renderer install FFmpeg on OS
 anim_save("flights.gif")
