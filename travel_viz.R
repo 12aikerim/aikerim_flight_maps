@@ -1,5 +1,5 @@
-*Idea and source code was taken from https://github.com/ksenianiglas/mapping_flight_paths/blob/master/flights.R
-*Original author of code is Ksenia Niglas.
+#Idea and source code was taken from https://github.com/ksenianiglas/mapping_flight_paths/blob/master/flights.R
+#Original author of code is Ksenia Niglas.
 install.packages(c("maps","rgeos","ggmap","geoshpere","tidyverse","gganimate"))
 
 library(ggplot2)
@@ -35,13 +35,15 @@ world<-c(geom_polygon(aes(long,lat,group=group),
 # Add city points of visited cities
 city_points<-unique(flights %>%
                       select(From,lat.x,lng.x))
+city_points$From<-ifelse(city_points$From!="Almaty" & city_points$From!="Seoul" & city_points$From!="Taraz" & city_points$From!="Istanbul","",city_points$From)
+
 g<-ggplot()+
   world+
-  geom_point(data=city_points,aes(x=lng.x,y=lat.x),color="#C70939",size=2) +
+  geom_point(data=city_points,aes(x=lng.x,y=lat.x,label), color=ifelse(city_points$From=="","white","#C70939"),size=2) +
   coord_fixed(ratio=1.3, xlim=c(-17.4731, 179.3067), ylim=c(-50.3333, 68.9700))+
-  geom_text_repel(data=city_points, aes(x = lng.x, y = lat.x, label = From), col = "white", size = 4,segment.color=NA) 
+  geom_text_repel(data=city_points,aes(x=lng.x,y=lat.x,label=From),color="white",size=4,segment.colour = NA) 
 
-
+g
 gfortify.SpatialLinesDataFrame=function(model,data,...){
   ldply(model@lines,fortify)
 }
@@ -62,10 +64,10 @@ fortifiedroutes <- fortifiedroutes %>%
 
 # Create plot + animation
 anim <- g+
-  geom_line(aes(long,lat, group = id), size=.8, data= fortifiedroutes,
+  geom_line(aes(long,lat, group = id), size=1, data= fortifiedroutes,
             color = "#EDDD53",
             alpha = .2) +
-  theme(panel.background = element_rect(fill='#1f1f1f',colour='#2b2b2b'), 
+  theme(panel.background = element_rect(fill='black',colour='white'), 
         panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(legend.position = "None",
         axis.title = element_blank(),
@@ -73,5 +75,5 @@ anim <- g+
         axis.text = element_blank()) + 
   transition_reveal(fortifiedroutes$ord)
 
-animate(anim, fps = 10,width = 1720, height = 1350) #to use ffmeg_renderer install FFmpeg on OS
+animate(anim, fps =10,width = 1080, height = 586) #to use ffmeg_renderer install FFmpeg on OS
 anim_save("flights.gif")
